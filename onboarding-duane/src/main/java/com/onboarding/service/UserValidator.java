@@ -54,9 +54,9 @@ public class UserValidator {
 			errors.put("username", USERNAME_REQUIRED);
 		}
 
-		if(userRepository.existsUserByUsername(dto.getUsername())) {
-			errors.put("username", USERNAME_TAKEN);
-		}
+//		if(userRepository.existsUserByUsername(dto.getUsername())) {
+//			errors.put("username", USERNAME_TAKEN);
+//		}
 
 		return errors;
 	}

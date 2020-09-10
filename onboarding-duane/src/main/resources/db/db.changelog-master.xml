@@ -4,10 +4,26 @@
 
     <changeSet  author="doddt2"  id="create-user-table">
         <createTable tableName="usr">
-            <column name="usr_id" type="varchar(36)"/>
+            <column name="usr_id" type="varchar(36)">
+                <constraints primaryKey="true"/>
+            </column>
             <column name="username" type="varchar(20)"/>
             <column name="first_name" type="varchar(50)"/>
             <column name="last_name" type="varchar(50)"/>
+        </createTable>
+    </changeSet>
+    
+    <changeSet id="create-phone-table" author="classend">
+        <createTable tableName="phone">
+            <column name="phone_id" type="varchar(36)">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="user_id" type="varchar(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="primary_phone_number" type="boolean"/>
+            <column name="phone_name" type="varchar(50)"/>
+            <column name="phone_number" type="varchar(50)"/>
         </createTable>
     </changeSet>
 

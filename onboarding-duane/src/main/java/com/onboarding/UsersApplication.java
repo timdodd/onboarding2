@@ -14,10 +14,10 @@ public class UsersApplication {
   //add validation for unique username (hint existsByUsername in repository - inject repository into validator). DONE
   //and write tests in UserValidatorTest for unique username (hint Mockito.mock(UserRepository.class), Mockito.when(repository.existsByUsername)) DONE
 
-  //add a phone table, entity, dto, service, controller, assembler etc and make phone a subresource of user.
-  //add controller and validator tests for the phone subresource
+  //add a phone table, entity, dto, service, controller, assembler etc and make phone a subresource of user. DONE
+  //add controller and validator tests for the phone subresource DONE
 
-  //add a phone 'action' to make a phone number primary
+  //add a phone 'action' to make a phone number primary DONE
 
   //come up with a set of REST endpoints that integrate with twillio to verify a cell phone number (don't check in your twillio api key).
 

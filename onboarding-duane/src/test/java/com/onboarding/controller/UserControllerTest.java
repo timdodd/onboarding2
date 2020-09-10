@@ -52,7 +52,7 @@ public class UserControllerTest {
 
 
 	private int countUsers() {
-		return userClient.findAll().size();
+		return userClient.findAllUsers().size();
 	}
 
 	private UUID createUser(String userName) {
