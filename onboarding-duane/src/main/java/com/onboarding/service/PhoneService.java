@@ -1,13 +1,15 @@
 package com.onboarding.service;
 
+import com.onboarding.UsersApplication;
 import com.onboarding.api.PhoneDto;
 import com.onboarding.assembler.PhoneAssembler;
 import com.onboarding.entity.Phone;
 import com.onboarding.exception.NotFoundException;
 import com.onboarding.repository.PhoneRepository;
+import com.twilio.rest.verify.v2.service.Verification;
+import com.twilio.rest.verify.v2.service.VerificationCheck;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.UUID;
 
@@ -69,6 +71,26 @@ public class PhoneService {
 
     public List<PhoneDto> findAllByUserId(UUID userId){
         return phoneAssembler.assemble(phoneRepository.findAllByUserId(userId));
+    }
+
+    public void sendVerify(PhoneDto dto) {
+        Verification.creator(
+                UsersApplication.SID,
+                "+" + dto.getPhoneNumber(),
+                "sms")
+                .create();
+    }
+
+    public void checkVerify(PhoneDto dto, String code) {
+        VerificationCheck verificationCheck = VerificationCheck.creator(
+                UsersApplication.SID,
+                code)
+                .setTo("+" + dto.getPhoneNumber()).create();
+
+        if(verificationCheck.getStatus().equals("approved")) {
+            dto.setPhoneNumberVerified(true);
+            update(dto);
+        }
     }
 
 }

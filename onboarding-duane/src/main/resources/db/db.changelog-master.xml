@@ -15,15 +15,16 @@
     
     <changeSet id="create-phone-table" author="classend">
         <createTable tableName="phone">
-            <column name="phone_id" type="varchar(36)">
-                <constraints primaryKey="true"/>
-            </column>
             <column name="user_id" type="varchar(36)">
                 <constraints nullable="false"/>
             </column>
-            <column name="primary_phone_number" type="boolean"/>
+            <column name="phone_id" type="varchar(36)">
+                <constraints primaryKey="true"/>
+            </column>
             <column name="phone_name" type="varchar(50)"/>
             <column name="phone_number" type="varchar(50)"/>
+            <column name="primary_phone_number" type="boolean" defaultValueBoolean="false"/>
+            <column name="number_verified" type="boolean" defaultValueBoolean="false"/>
         </createTable>
     </changeSet>
 

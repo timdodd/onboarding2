@@ -84,6 +84,8 @@ public class PhoneControllerTest {
                 .setUserId(new UUID(0,1))
                 .setPhoneId(new UUID(0,2))
                 .setPhoneName("Duane's Phone")
-                .setPhoneNumber("1-306-231-6467");
+                .setPhoneNumber("13062316467")
+                .setPrimaryPhoneNumber(true)
+                .setPhoneNumberVerified(false);
     }
 }

@@ -12,11 +12,13 @@ import java.util.Map;
 @Component
 public class PhoneValidator {
 
+    static String USERID_INVALID = "USERID_INVALID";
     static String PHONE_NAME_REQUIRED = "PHONE_NAME_REQUIRED";
     static String PHONE_NUMBER_REQUIRED = "PHONE_NUMBER_REQUIRED";
     static String PHONE_NAME_LT_50 = "PHONE_NAME_LT_50";
     static String PHONE_NUMBER_LT_50 = "PHONE_NUMBER_LT_50";
     static String PHONE_NUMBER_TAKEN = "PHONE_NUMBER_TAKEN";
+    static String PHONE_NUMBER_WRONG_FORMAT = "PHONE_NUMBER_WRONG_FORMAT";
 
     private PhoneRepository phoneRepository;
 
@@ -34,6 +36,10 @@ public class PhoneValidator {
     public Map<String, String> validate(PhoneDto dto) {
         Map<String, String> errors = new LinkedHashMap<>();
 
+//        if(!phoneRepository.existsByUserId(dto.getUserId())){
+//            errors.put("userId", USERID_INVALID);
+//        }
+
         if (StringUtils.isBlank(dto.getPhoneName())) {
             errors.put("phoneName", PHONE_NAME_REQUIRED);
         } else if(dto.getPhoneName().length() > 50) {
@@ -44,11 +50,11 @@ public class PhoneValidator {
             errors.put("phoneNumber", PHONE_NUMBER_REQUIRED);
         } else if(dto.getPhoneNumber().length() > 50) {
             errors.put("phoneNumber", PHONE_NUMBER_LT_50);
+        } else if(phoneRepository.existsPhoneByPhoneNumber(dto.getPhoneNumber())) {
+            errors.put("phoneNumber", PHONE_NUMBER_TAKEN);
+        } else if(!dto.getPhoneNumber().matches("\\d{11}")){
+            errors.put("phoneNumber", PHONE_NUMBER_WRONG_FORMAT);
         }
-
-//        if(phoneRepository.existsPhoneByPhoneNumber(dto.getPhoneNumber())) {
-//            errors.put("phoneNumber", PHONE_NUMBER_TAKEN);
-//        }
 
         return errors;
     }

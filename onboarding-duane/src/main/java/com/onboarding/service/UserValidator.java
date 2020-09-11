@@ -1,11 +1,9 @@
 package com.onboarding.service;
 
 import com.onboarding.api.UserDto;
-import com.onboarding.controller.UserController;
 import com.onboarding.exception.ValidationException;
 import com.onboarding.repository.UserRepository;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 
@@ -20,6 +18,7 @@ public class UserValidator {
 	static String FIRST_NAME_LT_50 = "FIRST_NAME_LT_50";
 	static String LAST_NAME_LT_50 = "LAST_NAME_LT_50";
 	static String USERNAME_REQUIRED = "USERNAME_REQUIRED";
+	static String USERNAME_LT_50 = "USERNAME_LT_50";
 	static String USERNAME_TAKEN = "USERNAME_TAKEN";
 
 	private UserRepository userRepository;
@@ -46,17 +45,17 @@ public class UserValidator {
 
 		if (StringUtils.isBlank(dto.getFirstName())) {
 			errors.put("firstName", FIRST_NAME_REQUIRED);
-		} else if(dto.getLastName().length() > 50) {
+		} else if(dto.getFirstName().length() > 50) {
 			errors.put("firstName", FIRST_NAME_LT_50);
 		}
 
 		if (StringUtils.isBlank(dto.getUsername())) {
 			errors.put("username", USERNAME_REQUIRED);
+		} else if(dto.getUsername().length() > 50) {
+			errors.put("username", USERNAME_LT_50);
+		} else if(userRepository.existsUserByUsername(dto.getUsername())) {
+			errors.put("username", USERNAME_TAKEN);
 		}
-
-//		if(userRepository.existsUserByUsername(dto.getUsername())) {
-//			errors.put("username", USERNAME_TAKEN);
-//		}
 
 		return errors;
 	}

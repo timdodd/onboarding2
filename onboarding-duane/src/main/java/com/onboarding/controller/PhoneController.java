@@ -34,16 +34,24 @@ public class PhoneController {
     }
 
     @PutMapping("/{phoneId}")
+    @ResponseStatus(HttpStatus.OK)
     public PhoneDto update(@PathVariable("userid") UUID userId, @PathVariable("phoneId") UUID phoneId, @RequestBody PhoneDto dto) {
         dto.setUserId(userId);
         dto.setPhoneId(phoneId);
         return phoneService.update(dto);
     }
-
     
     @DeleteMapping("/{phoneId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable("phoneId") UUID phoneId) {
         phoneService.delete(phoneId);
     }
+
+    @PostMapping("/{phoneId}/sendVerify")
+    public void sendVerify (@RequestBody PhoneDto dto) { phoneService.sendVerify(dto); }
+
+    @PutMapping("/{phoneId}/verify/{code}")
+    public void checkVerify (@PathVariable("code") String code, @RequestBody PhoneDto dto) { phoneService.checkVerify(dto, code); }
+
+
 }

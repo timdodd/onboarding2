@@ -3,13 +3,11 @@ package com.onboarding.assembler;
 import com.onboarding.api.PhoneDto;
 import com.onboarding.entity.Phone;
 import org.springframework.stereotype.Component;
-
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Component
 public class PhoneAssembler {
-
 
     public List<PhoneDto> assemble (List<Phone> entities) {
         return entities.stream()
@@ -23,7 +21,8 @@ public class PhoneAssembler {
                 .setUserId(entity.getUserId())
                 .setPrimaryPhoneNumber(entity.getPrimaryPhoneNumber())
                 .setPhoneName(entity.getPhoneName())
-                .setPhoneNumber(entity.getPhoneNumber());
+                .setPhoneNumber(entity.getPhoneNumber())
+                .setPhoneNumberVerified(entity.getPhoneNumberVerified());
     }
 
     public Phone disassemble(PhoneDto dto) {
@@ -35,6 +34,8 @@ public class PhoneAssembler {
                 .setPrimaryPhoneNumber(dto.getPrimaryPhoneNumber())
                 .setUserId(dto.getUserId())
                 .setPhoneName(dto.getPhoneName())
-                .setPhoneNumber(dto.getPhoneNumber());
+                .setPhoneNumber(dto.getPhoneNumber())
+                .setPhoneNumberVerified(dto.getPhoneNumberVerified());
     }
+
 }
