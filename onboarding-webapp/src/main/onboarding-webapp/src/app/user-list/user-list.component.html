@@ -1,0 +1,21 @@
+
+<div *ngIf="!loadingSubscription.closed">
+  Loading!!!
+</div>
+
+<table>
+  <thead>
+    <tr>
+      <th>Username</th>
+      <th>Last name</th>
+      <th>First name</th>
+    </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let user of users">
+    <td>{{user.username}}</td>
+    <td>{{user.firstName}}</td>
+    <td>{{user.lastName}}</td>
+  </tr>
+  </tbody>
+</table>
