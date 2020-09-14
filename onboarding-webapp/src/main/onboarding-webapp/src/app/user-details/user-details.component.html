@@ -1,0 +1,28 @@
+<form [formGroup]="formGroup" (submit)="onSubmit()">
+
+  <div>
+    <label>First name</label>
+    <input type="text" formControlName="firstName">
+  </div>
+
+  <div>
+    <label>Last name</label>
+    <input type="text" formControlName="lastName">
+  </div>
+
+  <div>
+    <label>User name</label>
+    <input type="text" formControlName="username">
+  </div>
+
+  <div>
+    <button (click)="onSubmit()"></button>
+  </div>
+
+</form>
+
+
+
+
+
+
