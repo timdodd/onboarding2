@@ -67,12 +67,6 @@ public class UserClient {
 				.put(Entity.json(phoneDto), PhoneDto.class);
 	}
 
-	public PhoneDto updatePrimaryPhoneNumber(UUID userId, PhoneDto phoneDto) {//working on this
-		return phoneTarget(userId, phoneDto.getPhoneId())
-				.request()
-				.put(Entity.json(phoneDto), PhoneDto.class);
-	}
-
 	public void delete(UUID userId, UUID phoneId) {
 		phoneTarget(userId, phoneId)
 				.request()

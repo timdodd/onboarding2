@@ -30,7 +30,9 @@ public class PhoneControllerTest {
 
     @Test
     public void testCreate_whenValid_shouldCreatePhone() {
-        UserDto createdUser = getValidUser();
+        UserDto createUser = getValidUser();
+        UserDto createdUser = userClient.create(createUser);
+        assertNotNull(createdUser.getUserId());
         PhoneDto createdPhone = getValidUserPhone();
         PhoneDto responsePhone = userClient.create(createdUser.getUserId(), createdPhone);
         assertNotNull(responsePhone.getPhoneId());
@@ -38,7 +40,9 @@ public class PhoneControllerTest {
     
     @Test
     public void testCreateAndDelete_whenValid_shouldDeletePhone() {
-        UserDto createdUser = getValidUser();
+        UserDto createUser = getValidUser();
+        UserDto createdUser = userClient.create(createUser);
+        assertNotNull(createdUser.getUserId());
         PhoneDto createdPhone = getValidUserPhone();
         PhoneDto responsePhone = userClient.create(createdUser.getUserId(), createdPhone);
         assertEquals(1, countPhones(createdUser.getUserId()));
@@ -55,16 +59,18 @@ public class PhoneControllerTest {
 
     @Test
     public void testCreateAndUpdate_whenValid_shouldUpdatePhone() {
-        UserDto createdUser = getValidUser();
+        UserDto createUser = getValidUser();
+        UserDto createdUser = userClient.create(createUser);
+        assertNotNull(createdUser.getUserId());
         PhoneDto createdPhone = getValidUserPhone();
         PhoneDto responsePhone = userClient.create(createdUser.getUserId(), createdPhone);
         assertEquals(1, countPhones(createdUser.getUserId()));
         createdPhone.setUserId(createdUser.getUserId());
         responsePhone.setPhoneName("testName");
-        responsePhone.setPhoneNumber("testNumber");
+        responsePhone.setPhoneNumber("01234567891");
         userClient.update(createdUser, responsePhone);
         assertEquals("testName", userClient.get(createdUser.getUserId(), responsePhone.getPhoneId()).getPhoneName());
-        assertEquals("testNumber", userClient.get(createdUser.getUserId(), responsePhone.getPhoneId()).getPhoneNumber());
+        assertEquals("01234567891", userClient.get(createdUser.getUserId(), responsePhone.getPhoneId()).getPhoneNumber());
     }
 
     private int countPhones(UUID userId) {

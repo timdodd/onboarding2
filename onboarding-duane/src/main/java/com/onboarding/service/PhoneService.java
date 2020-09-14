@@ -6,6 +6,7 @@ import com.onboarding.assembler.PhoneAssembler;
 import com.onboarding.entity.Phone;
 import com.onboarding.exception.NotFoundException;
 import com.onboarding.repository.PhoneRepository;
+import com.onboarding.repository.UserRepository;
 import com.twilio.rest.verify.v2.service.Verification;
 import com.twilio.rest.verify.v2.service.VerificationCheck;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,8 @@ import java.util.UUID;
 public class PhoneService {
 
     @Autowired
+    private UserRepository userRepository;
+    @Autowired
     private PhoneRepository phoneRepository;
     @Autowired
     private PhoneAssembler phoneAssembler;
@@ -26,19 +29,32 @@ public class PhoneService {
     public PhoneDto create(PhoneDto dto) {
         phoneValidator.validateAndThrow(dto);
 
-        if(dto.getPrimaryPhoneNumber()) {
-            phoneRepository.findAllByUserId(dto.getUserId()).forEach(p -> p.setPrimaryPhoneNumber(false));
+        if(userRepository.existsByUserId(dto.getUserId())){
+            if(dto.getPrimaryPhoneNumber() == null) {
+                dto.setPrimaryPhoneNumber(false);
+            }
+
+            if (dto.getPhoneNumberVerified() == null) {
+                dto.setPhoneNumberVerified(false);
+            }
+
+            if(dto.getPrimaryPhoneNumber() != null && dto.getPrimaryPhoneNumber()) {
+                phoneRepository.findAllByUserId(dto.getUserId()).forEach(p -> p.setPrimaryPhoneNumber(false));
+            }
+
+            Phone entity = phoneAssembler.disassemble(dto);
+            phoneRepository.save(entity);
+            return phoneAssembler.assemble(entity);
+        } else {
+            throw new NotFoundException();
         }
 
-        Phone entity = phoneAssembler.disassemble(dto);
-        phoneRepository.save(entity);
-        return phoneAssembler.assemble(entity);
     }
 
     public PhoneDto update(PhoneDto dto) {
         phoneValidator.validateAndThrow(dto);
 
-        if(dto.getPrimaryPhoneNumber()) {
+        if(dto.getPrimaryPhoneNumber() || dto.getPrimaryPhoneNumber() == null) {
             phoneRepository.findAllByUserId(dto.getUserId()).forEach(p -> p.setPrimaryPhoneNumber(false));
         }
 

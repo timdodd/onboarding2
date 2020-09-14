@@ -31,10 +31,10 @@ public class PhoneAssembler {
 
     public Phone disassembleInto(PhoneDto dto, Phone entity) {
         return entity
-                .setPrimaryPhoneNumber(dto.getPrimaryPhoneNumber())
                 .setUserId(dto.getUserId())
                 .setPhoneName(dto.getPhoneName())
                 .setPhoneNumber(dto.getPhoneNumber())
+                .setPrimaryPhoneNumber(dto.getPrimaryPhoneNumber())
                 .setPhoneNumberVerified(dto.getPhoneNumberVerified());
     }
 

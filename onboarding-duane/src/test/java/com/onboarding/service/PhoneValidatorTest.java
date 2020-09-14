@@ -13,19 +13,6 @@ import java.util.UUID;
 
 public class PhoneValidatorTest {
 
-//    @Test
-//    public void testValidate_whenUseridInvalid_shouldCreateError(){
-//        PhoneRepository phoneRepository = Mockito.mock(PhoneRepository.class);
-//        PhoneValidator phoneValidator = new PhoneValidator(phoneRepository);
-//        PhoneDto dto = getValidUserPhone();
-//        Mockito.when(phoneRepository.existsByUserId(dto.getUserId())).thenReturn(false);
-//        Map<String,String> errors = phoneValidator.validate(dto);
-//
-//        assertTrue(errors.size() == 1);
-//        assertTrue(errors.containsKey("userId"));
-//        assertEquals(PhoneValidator.USERID_INVALID, errors.get("userId"));
-//    }
-
     @Test
     public void testValidate_whenPhoneNameNull_shouldCreateError() {
         PhoneRepository phoneRepository = Mockito.mock(PhoneRepository.class);
