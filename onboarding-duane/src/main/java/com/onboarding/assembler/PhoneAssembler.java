@@ -2,6 +2,7 @@ package com.onboarding.assembler;
 
 import com.onboarding.api.PhoneDto;
 import com.onboarding.entity.Phone;
+import org.apache.commons.lang3.BooleanUtils;
 import org.springframework.stereotype.Component;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -15,14 +16,14 @@ public class PhoneAssembler {
                 .collect(Collectors.toList());
     }
 
-    public PhoneDto assemble (Phone entity) {
+    public PhoneDto assemble(Phone entity) {
         return new PhoneDto()
                 .setPhoneId(entity.getPhoneId())
                 .setUserId(entity.getUserId())
-                .setPrimaryPhoneNumber(entity.getPrimaryPhoneNumber())
                 .setPhoneName(entity.getPhoneName())
                 .setPhoneNumber(entity.getPhoneNumber())
-                .setPhoneNumberVerified(entity.getPhoneNumberVerified());
+                .setPrimaryPhoneNumber(entity.isPrimaryPhoneNumber())
+                .setPhoneNumberVerified(entity.isPhoneNumberVerified());
     }
 
     public Phone disassemble(PhoneDto dto) {
@@ -34,8 +35,7 @@ public class PhoneAssembler {
                 .setUserId(dto.getUserId())
                 .setPhoneName(dto.getPhoneName())
                 .setPhoneNumber(dto.getPhoneNumber())
-                .setPrimaryPhoneNumber(dto.getPrimaryPhoneNumber())
-                .setPhoneNumberVerified(dto.getPhoneNumberVerified());
+                .setPrimaryPhoneNumber(BooleanUtils.isTrue(dto.getPrimaryPhoneNumber()));
     }
 
 }

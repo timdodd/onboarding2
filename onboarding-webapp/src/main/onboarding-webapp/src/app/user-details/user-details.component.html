@@ -1,25 +1,26 @@
-<form [formGroup]="formGroup" (submit)="onSubmit()">
+<div class="row">
+  <div class="col-md-6">
+    <form [formGroup]="formGroup" (submit)="onSubmit()">
 
-  <div>
-    <label>First name</label>
-    <input type="text" formControlName="firstName">
+      <div class="form-group">
+        <label for="firstName">First name</label>
+        <input type="text" class="form-control" id="firstName" formControlName="firstName">
+      </div>
+      <div class="form-group">
+        <label for="lastName">Last name</label>
+        <input type="text" class="form-control" id="lastName" formControlName="lastName">
+      </div>
+      <div class="form-group">
+        <label for="username">Username</label>
+        <input type="text" class="form-control" id="username" formControlName="username">
+      </div>
+      <div>
+        <button class="btn btn-primary">Save</button>
+      </div>
+    </form>
   </div>
+</div>
 
-  <div>
-    <label>Last name</label>
-    <input type="text" formControlName="lastName">
-  </div>
-
-  <div>
-    <label>User name</label>
-    <input type="text" formControlName="username">
-  </div>
-
-  <div>
-    <button (click)="onSubmit()"></button>
-  </div>
-
-</form>
 
 
 

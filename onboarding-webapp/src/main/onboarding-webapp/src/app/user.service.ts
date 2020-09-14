@@ -1,32 +1,23 @@
-import { Injectable } from '@angular/core';
-import {of} from "rxjs";
-import {delay} from "rxjs/operators";
+import {Injectable} from '@angular/core';
+import {Observable} from "rxjs";
 import {UserModel} from "./model/user.model";
+import {HttpClient} from "@angular/common/http";
+
+const BASE_URI = './api/v1/users';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
 
-  users: User[] = [];
-
-  constructor() {
-    this.users.push({
-      userId: "123",
-      firstName: "Tim",
-      lastName: "Dodd"
-    });
+  constructor(private http: HttpClient) {
   }
 
-
   findAll(): Observable<UserModel[]> {
-    return of(this.users).pipe(
-      delay(2000)
-    );
+    return this.http.get<UserModel[]>(BASE_URI);
   }
 
   save(user: UserModel): Observable<UserModel> {
-    this.users.push(user);
-    return of(user);
+    return this.http.post<UserModel>(BASE_URI, user);
   }
 }

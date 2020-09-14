@@ -28,9 +28,9 @@ public class Phone {
     @Column(name = "phone_number")
     private String phoneNumber;
     @Column(name = "primary_phone_number")
-    private Boolean primaryPhoneNumber;
+    private boolean primaryPhoneNumber;
     @Column(name = "number_verified")
-    private Boolean phoneNumberVerified;
+    private boolean phoneNumberVerified;
 
     public static Phone newInstance() {
         Phone phone = new Phone();

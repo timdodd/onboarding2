@@ -11,7 +11,7 @@ import java.util.UUID;
 
 
 @RestController
-@RequestMapping("/api/v1/users/{userid}/phones")
+@RequestMapping("/api/v1/users/{userId}/phones")
 public class PhoneController {
     @Autowired
     private PhoneService phoneService;
@@ -28,14 +28,13 @@ public class PhoneController {
     
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public PhoneDto create(@PathVariable("userid") UUID userId, @RequestBody PhoneDto dto) {
+    public PhoneDto create(@PathVariable("userId") UUID userId, @RequestBody PhoneDto dto) {
         dto.setUserId(userId);
         return phoneService.create(dto);
     }
 
     @PutMapping("/{phoneId}")
-    @ResponseStatus(HttpStatus.OK)
-    public PhoneDto update(@PathVariable("userid") UUID userId, @PathVariable("phoneId") UUID phoneId, @RequestBody PhoneDto dto) {
+    public PhoneDto update(@PathVariable("userId") UUID userId, @PathVariable("phoneId") UUID phoneId, @RequestBody PhoneDto dto) {
         dto.setUserId(userId);
         dto.setPhoneId(phoneId);
         return phoneService.update(dto);

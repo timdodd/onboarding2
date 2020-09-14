@@ -9,10 +9,13 @@ import com.onboarding.repository.PhoneRepository;
 import com.onboarding.repository.UserRepository;
 import com.twilio.rest.verify.v2.service.Verification;
 import com.twilio.rest.verify.v2.service.VerificationCheck;
+import org.apache.commons.lang3.BooleanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
 import java.util.UUID;
+import java.util.function.Predicate;
 
 @Service
 public class PhoneService {
@@ -27,35 +30,25 @@ public class PhoneService {
     private PhoneValidator phoneValidator;
 
     public PhoneDto create(PhoneDto dto) {
-        phoneValidator.validateAndThrow(dto);
-
-        if(userRepository.existsByUserId(dto.getUserId())){
-            if(dto.getPrimaryPhoneNumber() == null) {
-                dto.setPrimaryPhoneNumber(false);
-            }
-
-            if (dto.getPhoneNumberVerified() == null) {
-                dto.setPhoneNumberVerified(false);
-            }
-
-            if(dto.getPrimaryPhoneNumber() != null && dto.getPrimaryPhoneNumber()) {
-                phoneRepository.findAllByUserId(dto.getUserId()).forEach(p -> p.setPrimaryPhoneNumber(false));
-            }
-
-            Phone entity = phoneAssembler.disassemble(dto);
-            phoneRepository.save(entity);
-            return phoneAssembler.assemble(entity);
-        } else {
+        if(!userRepository.existsByUserId(dto.getUserId())) {
             throw new NotFoundException();
         }
+        phoneValidator.validateAndThrow(dto);
 
+        if (BooleanUtils.isTrue(dto.getPrimaryPhoneNumber())) {
+            markPhoneNumbersNotPrimary(dto.getUserId());
+        }
+
+        Phone entity = phoneAssembler.disassemble(dto);
+        phoneRepository.save(entity);
+        return phoneAssembler.assemble(entity);
     }
 
     public PhoneDto update(PhoneDto dto) {
         phoneValidator.validateAndThrow(dto);
 
-        if(dto.getPrimaryPhoneNumber() || dto.getPrimaryPhoneNumber() == null) {
-            phoneRepository.findAllByUserId(dto.getUserId()).forEach(p -> p.setPrimaryPhoneNumber(false));
+        if (BooleanUtils.isTrue(dto.getPrimaryPhoneNumber())) {
+            markPhoneNumbersNotPrimary(dto.getUserId(), (phoneId) -> !dto.getPhoneId().equals(phoneId));
         }
 
         return phoneRepository.findById(dto.getPhoneId())
@@ -63,6 +56,18 @@ public class PhoneService {
                 .map(phoneRepository::save)
                 .map(phoneAssembler::assemble)
                 .orElseThrow(() -> new NotFoundException());
+    }
+
+
+    private void markPhoneNumbersNotPrimary(UUID userId) {
+        markPhoneNumbersNotPrimary(userId, (phoneId) -> true);
+    }
+
+    private void markPhoneNumbersNotPrimary(UUID userId, Predicate<UUID> exclude) {
+        phoneRepository.findAllByUserId(userId)
+                .stream()
+                .filter(p -> exclude.test(p.getPhoneId()))
+                .forEach(p -> p.setPrimaryPhoneNumber(false));
     }
 
 

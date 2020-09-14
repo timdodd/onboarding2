@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormControl} from "@angular/forms";
+import {FormBuilder, FormGroup} from "@angular/forms";
 import {UserService} from "../user.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-user-details',
@@ -12,7 +13,8 @@ export class UserDetailsComponent implements OnInit {
   formGroup = this.createFormGroup();
 
   constructor(private formBuilder: FormBuilder,
-              private userService: UserService) {
+              private userService: UserService,
+              private router: Router) {
   }
 
   ngOnInit() {
@@ -20,17 +22,18 @@ export class UserDetailsComponent implements OnInit {
 
   onSubmit() {
     const valueToSave = this.formGroup.value;
-    this.userService.save(valueToSave);
+    this.userService.save(valueToSave).subscribe(data => {
+      this.router.navigateByUrl('')
+    });
   }
 
   private createFormGroup(): FormGroup {
     return this.formGroup = this.formBuilder.group({
-      firstName : null,
-      lastName : null,
-      username : null
+      firstName: null,
+      lastName: null,
+      username: null
     });
   }
-
 
 
 }

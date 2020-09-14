@@ -23,9 +23,14 @@
             </column>
             <column name="phone_name" type="varchar(50)"/>
             <column name="phone_number" type="varchar(50)"/>
-            <column name="primary_phone_number" type="boolean" defaultValueBoolean="false"/>
-            <column name="number_verified" type="boolean" defaultValueBoolean="false"/>
+            <column name="primary_phone_number" type="boolean">
+                <constraints nullable="false"/>
+            </column>
+            <column name="number_verified" type="boolean">
+                <constraints nullable="false"/>
+            </column>
         </createTable>
     </changeSet>
+
 
 </databaseChangeLog>
