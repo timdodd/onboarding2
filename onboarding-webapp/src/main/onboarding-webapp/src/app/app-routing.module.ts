@@ -1,8 +1,9 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-import {UserListComponent} from "./user-list/user-list.component";
-import {UserDetailsComponent} from "./user-details/user-details.component";
-import {HashLocationStrategy, LocationStrategy} from "@angular/common";
+import {UserListComponent} from './components/user-list/user-list.component';
+import {UserDetailsComponent} from './components/user-details/user-details.component';
+import {HashLocationStrategy, LocationStrategy} from '@angular/common';
+import {UserDetailsEditComponent} from './components/user-details-edit/user-details-edit.component';
 
 const routes: Routes = [
   {
@@ -10,8 +11,12 @@ const routes: Routes = [
     component: UserListComponent,
   },
   {
-    path: 'create',
+    path: 'createUser',
     component: UserDetailsComponent,
+  },
+  {
+    path: 'editUser',
+    component: UserDetailsEditComponent,
   }
 ];
 

@@ -51,36 +51,36 @@ public class UserClient {
 				});
 	}
 
-	public PhoneDto create(UUID userId, PhoneDto phoneDto) {
-		return phoneTarget(userId)
-				.request()
-				.post(Entity.json(phoneDto), PhoneDto.class);
-	}
-
-	public PhoneDto update(UserDto userDto, PhoneDto phoneDto) {
-		return phoneTarget(userDto.getUserId(), phoneDto.getPhoneId())
-				.request()
-				.put(Entity.json(phoneDto), PhoneDto.class);
-	}
-
-	public void delete(UUID userId, UUID phoneId) {
-		phoneTarget(userId, phoneId)
-				.request()
-				.delete(Void.class);
-	}
-
-	public List<PhoneDto> findAllPhones(UUID userId) {
-		return phoneTarget(userId)
-				.request()
-				.get(new GenericType<List<PhoneDto>>() {
-				});
-	}
-
-	public PhoneDto get(UUID userId, UUID phoneId) {
-		return phoneTarget(userId, phoneId)
-				.request()
-				.get(PhoneDto.class);
-	}
+//	public PhoneDto create(UUID userId, PhoneDto phoneDto) {
+//		return phoneTarget(userId)
+//				.request()
+//				.post(Entity.json(phoneDto), PhoneDto.class);
+//	}
+//
+//	public PhoneDto update(UserDto userDto, PhoneDto phoneDto) {
+//		return phoneTarget(userDto.getUserId(), phoneDto.getPhoneId())
+//				.request()
+//				.put(Entity.json(phoneDto), PhoneDto.class);
+//	}
+//
+//	public void delete(UUID userId, UUID phoneId) {
+//		phoneTarget(userId, phoneId)
+//				.request()
+//				.delete(Void.class);
+//	}
+//
+//	public List<PhoneDto> findAllPhones(UUID userId) {
+//		return phoneTarget(userId)
+//				.request()
+//				.get(new GenericType<List<PhoneDto>>() {
+//				});
+//	}
+//
+//	public PhoneDto get(UUID userId, UUID phoneId) {
+//		return phoneTarget(userId, phoneId)
+//				.request()
+//				.get(PhoneDto.class);
+//	}
 
 
 
