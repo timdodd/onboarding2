@@ -8,7 +8,6 @@ import java.util.UUID;
 
 @Repository
 public interface PhoneRepository extends JpaRepository<Phone, UUID> {
-    boolean existsByUserId(UUID userId);
     boolean existsByPhoneId(UUID phoneId);
     boolean existsPhoneByPhoneNumber(String phoneNumber);
     List<Phone> findAllByUserId(UUID userId);

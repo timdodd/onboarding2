@@ -62,7 +62,7 @@ public class UserValidator {
 	}
 
 	private boolean isNewUser(UserDto dto) {
-		return dto.getUserId() != null;
+		return dto.getUserId() == null;
 	}
 
 	private boolean isUsernameEdited(UserDto dto) {

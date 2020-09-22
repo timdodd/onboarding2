@@ -86,6 +86,24 @@ public class UserClient {
 				.get(PhoneDto.class);
 	}
 
+	public void sendVerify(UUID userId, PhoneDto dto){
+		userTarget(userId)
+			.path("phones")
+			.path(dto.getPhoneId().toString())
+			.path("sendVerify")
+			.request()
+			.post(Entity.json(dto), PhoneDto.class);
+	}
+
+	public void checkVerify(UUID userId, PhoneDto dto, String code) {
+		userTarget(userId)
+				.path("phones")
+				.path(dto.getPhoneId().toString())
+				.path("verify")
+				.path(code)
+				.request()
+				.put(Entity.json(dto), PhoneDto.class);
+	}
 
 
 	//targets all phones of a user

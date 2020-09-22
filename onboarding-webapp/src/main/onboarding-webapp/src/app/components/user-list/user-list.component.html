@@ -22,6 +22,7 @@
     <td>{{user.username}}</td>
     <td>{{user.firstName}}</td>
     <td>{{user.lastName}}</td>
+    <td><button class="btn btn-primary" (click)="onPhones(user.userId)">Phones</button></td>
     <td><button class="btn btn-primary" (click)="onEdit(user.userId)">Edit</button></td>
     <td><button class="btn btn-primary" (click)="onDelete(user.userId)">Delete</button></td>
   </tr>

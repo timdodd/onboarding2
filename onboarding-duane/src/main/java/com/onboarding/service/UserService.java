@@ -2,9 +2,12 @@ package com.onboarding.service;
 
 import com.onboarding.api.UserDto;
 import com.onboarding.assembler.UserAssembler;
+import com.onboarding.entity.Phone;
 import com.onboarding.entity.User;
 import com.onboarding.exception.NotFoundException;
+import com.onboarding.repository.PhoneRepository;
 import com.onboarding.repository.UserRepository;
+import liquibase.pro.packaged.A;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,6 +26,13 @@ public class UserService {
 	private UserAssembler userAssembler;
 	@Autowired
 	private UserValidator userValidator;
+	@Autowired
+	private PhoneService phoneService;
+
+	private PhoneRepository phoneRepository;
+	UserService(PhoneRepository phoneRepository) {
+		this.phoneRepository = phoneRepository;
+	}
 
 	public UserDto update(UserDto dto) {
 		userValidator.validateAndThrow(dto);
@@ -64,6 +74,8 @@ public class UserService {
 		boolean exists = userRepository.existsByUserId(userId);
 		if (exists) {
 			userRepository.deleteById(userId);
+			List<Phone> phones = phoneRepository.findAllByUserId(userId);
+			phones.forEach(phone -> phoneService.delete(phone.getPhoneId()));
 		} else {
 			throw new NotFoundException();
 		}

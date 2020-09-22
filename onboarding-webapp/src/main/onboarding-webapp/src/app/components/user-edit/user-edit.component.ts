@@ -1,15 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {UserService} from '../../services/user-service/user.service';
+import {UserService} from '../../services/user.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {UserModel} from '../../models/user.model';
 
 @Component({
   selector: 'app-user-details-edit',
-  templateUrl: './user-details-edit.component.html',
-  styleUrls: ['./user-details-edit.component.css']
+  templateUrl: './user-edit.component.html',
+  styleUrls: ['./user-edit.component.css']
 })
-export class UserDetailsEditComponent implements OnInit {
+export class UserEditComponent implements OnInit {
   user: UserModel;
   userId: string;
   formGroup = this.createFormGroup();
@@ -24,7 +24,7 @@ export class UserDetailsEditComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.userService.find(this.userId).subscribe(user => {
+    this.userService.get(this.userId).subscribe(user => {
       this.user = user;
       this.updateFormGroup(user);
     } );

@@ -51,38 +51,55 @@ public class UserClient {
 				});
 	}
 
-//	public PhoneDto create(UUID userId, PhoneDto phoneDto) {
-//		return phoneTarget(userId)
-//				.request()
-//				.post(Entity.json(phoneDto), PhoneDto.class);
-//	}
-//
-//	public PhoneDto update(UserDto userDto, PhoneDto phoneDto) {
-//		return phoneTarget(userDto.getUserId(), phoneDto.getPhoneId())
-//				.request()
-//				.put(Entity.json(phoneDto), PhoneDto.class);
-//	}
-//
-//	public void delete(UUID userId, UUID phoneId) {
-//		phoneTarget(userId, phoneId)
-//				.request()
-//				.delete(Void.class);
-//	}
-//
-//	public List<PhoneDto> findAllPhones(UUID userId) {
-//		return phoneTarget(userId)
-//				.request()
-//				.get(new GenericType<List<PhoneDto>>() {
-//				});
-//	}
-//
-//	public PhoneDto get(UUID userId, UUID phoneId) {
-//		return phoneTarget(userId, phoneId)
-//				.request()
-//				.get(PhoneDto.class);
-//	}
+	public PhoneDto createPhone(UUID userId, PhoneDto phoneDto) {
+		return phoneTarget(userId)
+				.request()
+				.post(Entity.json(phoneDto), PhoneDto.class);
+	}
 
+	public PhoneDto updatePhone(UUID userId, PhoneDto phoneDto) {
+		return phoneTarget(userId, phoneDto.getPhoneId())
+				.request()
+				.put(Entity.json(phoneDto), PhoneDto.class);
+	}
 
+	public void deletePhone(UUID userId, UUID phoneId) {
+		phoneTarget(userId, phoneId)
+				.request()
+				.delete(Void.class);
+	}
+
+	public List<PhoneDto> getAllPhones(UUID userId) {
+		return phoneTarget(userId)
+				.request()
+				.get(new GenericType<List<PhoneDto>>() {
+				});
+	}
+
+	public PhoneDto getUserPhone(UUID userId, UUID phoneId) {
+		return phoneTarget(userId, phoneId)
+				.request()
+				.get(PhoneDto.class);
+	}
+
+	public void sendVerify(UUID userId, PhoneDto dto){
+		userTarget(userId)
+				.path("phones")
+				.path(dto.getPhoneId().toString())
+				.path("sendVerify")
+				.request()
+				.post(Entity.json(dto), PhoneDto.class);
+	}
+
+	public void checkVerify(UUID userId, PhoneDto dto, String code) {
+		userTarget(userId)
+				.path("phones")
+				.path(dto.getPhoneId().toString())
+				.path("verify")
+				.path(code)
+				.request()
+				.put(Entity.json(dto), PhoneDto.class);
+	}
 
 	//targets all phones of a user
 	private WebTarget phoneTarget(UUID userId) {

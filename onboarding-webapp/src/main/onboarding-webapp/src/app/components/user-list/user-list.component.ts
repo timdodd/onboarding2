@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Subscription} from 'rxjs';
-import {UserService} from '../../services/user-service/user.service';
+import {UserService} from '../../services/user.service';
 import {UserModel} from '../../models/user.model';
 import {NavigationExtras, Router} from '@angular/router';
 
@@ -20,7 +20,7 @@ export class UserListComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.loadingSubscription = this.userService.findAll().subscribe(users => {
+    this.loadingSubscription = this.userService.getAll().subscribe(users => {
       this.users = users;
     });
   }
@@ -40,6 +40,15 @@ export class UserListComponent implements OnInit {
       }
     };
     this.router.navigate(['/editUser'], navigationExtras);
+  }
+
+  onPhones(userId: string) {
+    const navigationExtras: NavigationExtras = {
+      queryParams: {
+        'userId': userId
+      }
+    };
+    this.router.navigate(['/userPhones'], navigationExtras);
   }
 
 
