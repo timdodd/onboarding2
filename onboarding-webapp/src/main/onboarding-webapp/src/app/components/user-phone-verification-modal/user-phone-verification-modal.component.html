@@ -1,3 +1,15 @@
-<p>
-  user-phone-verification-modal works!
-</p>
+<div class="bg-dark text-white">
+  <div class="modal-header">
+    <h4 class="modal-title">Verification</h4>
+    <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <p>Please enter the verification code for {{phone.phoneName}}</p>
+    <input #code ngbAutoFocus (keyup.enter)="checkVerify(phone, code.value)"type="text" >
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-primary" (click)="checkVerify(phone, code.value)">Verify</button>
+  </div>
+</div>

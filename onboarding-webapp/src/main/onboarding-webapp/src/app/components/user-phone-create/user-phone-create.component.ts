@@ -43,7 +43,8 @@ export class UserPhoneCreateComponent implements OnInit {
     return this.formGroup = new FormGroup({
       phoneName: new FormControl(null, [Validators.required, Validators.maxLength(50)]),
       phoneNumber: new FormControl(null, [Validators.required, Validators.maxLength(11), phoneNumberValidator]),
-      primaryPhoneNumber: new FormControl(false)
+      primaryPhoneNumber: new FormControl(false),
+      phoneNumberVerified: new FormControl(false)
     });
   }
 

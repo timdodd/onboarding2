@@ -1,29 +1,32 @@
 <div class="row">
   <div class="col-md-6">
-    <form [formGroup]="formGroup" (submit)="onSubmit()">
-
-      <div class="form-group">
-        <label for="firstName">First name</label>
-        <input type="text" class="form-control" id="firstName" formControlName="firstName">
-        <span *ngIf="(firstName.dirty || firstName.touched) && firstName.invalid && firstName.errors.required">First Name is required.</span>
-        <span *ngIf="(firstName.dirty || firstName.touched) && firstName.invalid && firstName.errors.maxlength">First Name is too long.</span>
+    <div class="card bg-dark border-dark">
+      <div class="card-body">
+        <form class="text-white" [formGroup]="formGroup" (submit)="onSubmit()">
+          <div class="form-group">
+            <label for="firstName">First Name:</label>
+            <input type="text" class="form-control" id="firstName" formControlName="firstName">
+            <span *ngIf="(firstName.dirty || firstName.touched) && firstName.invalid && firstName.errors.required" class="text-danger">First Name is required.</span>
+            <span *ngIf="(firstName.dirty || firstName.touched) && firstName.invalid && firstName.errors.maxlength" class="text-danger">First Name is too long.</span>
+          </div>
+          <div class="form-group">
+            <label for="lastName">Last Name:</label>
+            <input type="text" class="form-control" id="lastName" formControlName="lastName">
+            <span *ngIf="(lastName.dirty || lastName.touched) && lastName.invalid && lastName.errors.required" class="text-danger">Last Name is required.</span>
+            <span *ngIf="(lastName.dirty || lastName.touched) && lastName.invalid && lastName.errors.maxlength" class="text-danger">Last Name is too long.</span>
+          </div>
+          <div class="form-group">
+            <label for="username">Username:</label>
+            <input type="text" class="form-control" id="username" formControlName="username">
+            <span *ngIf="(username.dirty || username.touched) && username.invalid && username.errors.required" class="text-danger">Username is required.</span>
+            <span *ngIf="(username.dirty || username.touched) && username.invalid && username.errors.maxlength" class="text-danger">Username is too long.</span>
+          </div>
+          <div>
+            <button [disabled]="!formGroup.valid" class="btn btn-primary float-right">Save</button>
+          </div>
+        </form>
       </div>
-      <div class="form-group">
-        <label for="lastName">Last name</label>
-        <input type="text" class="form-control" id="lastName" formControlName="lastName">
-        <span *ngIf="(lastName.dirty || lastName.touched) && lastName.invalid && lastName.errors.required">Last Name is required.</span>
-        <span *ngIf="(lastName.dirty || lastName.touched) && lastName.invalid && lastName.errors.maxlength">Last Name is too long.</span>
-      </div>
-      <div class="form-group">
-        <label for="username">Username</label>
-        <input type="text" class="form-control" id="username" formControlName="username">
-        <span *ngIf="(username.dirty || username.touched) && username.invalid && username.errors.required">Username is required.</span>
-        <span *ngIf="(username.dirty || username.touched) && username.invalid && username.errors.maxlength">Username is too long.</span>
-      </div>
-      <div>
-        <button [disabled]="!formGroup.valid" class="btn btn-primary">Save</button>
-      </div>
-    </form>
+    </div>
   </div>
 </div>
 

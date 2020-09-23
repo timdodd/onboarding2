@@ -14,6 +14,8 @@ import { UserPhoneCreateComponent } from './components/user-phone-create/user-ph
 import { UserPhoneEditComponent } from './components/user-phone-edit/user-phone-edit.component';
 import { UserPhoneVerificationModalComponent } from './components/user-phone-verification-modal/user-phone-verification-modal.component';
 
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -30,7 +32,8 @@ import { UserPhoneVerificationModalComponent } from './components/user-phone-ver
     CommonModule,
     HttpClientModule,
     ReactiveFormsModule,
-    AppRoutingModule
+    AppRoutingModule,
+    NgbModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -3,6 +3,8 @@ import {PhoneModel} from '../../models/phone.model';
 import {Subscription} from 'rxjs';
 import {ActivatedRoute, NavigationExtras, Router} from '@angular/router';
 import {PhoneService} from '../../services/phone.service';
+import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
+import {UserPhoneVerificationModalComponent} from "../user-phone-verification-modal/user-phone-verification-modal.component";
 
 @Component({
   selector: 'app-user-phone-list',
@@ -11,13 +13,15 @@ import {PhoneService} from '../../services/phone.service';
 })
 export class UserPhoneListComponent implements OnInit {
 
+  // code: string;
   phones: PhoneModel[] = [];
   userId: string;
   loadingSubscription = Subscription.EMPTY;
 
   constructor(private phoneService: PhoneService,
               private router: Router,
-              private route: ActivatedRoute) {
+              private route: ActivatedRoute,
+              private modalService: NgbModal) {
     this.route.queryParams.subscribe(params => {
       this.userId = params['userId'];
     });
@@ -54,6 +58,12 @@ export class UserPhoneListComponent implements OnInit {
   }
 
   onVerify(phone: PhoneModel) {
-  // this.phoneService.sendVerify(phone.userId, phone).subscribe();
+    this.phoneService.sendVerify(phone.userId, phone).subscribe();
+    const modalRef = this.modalService.open(UserPhoneVerificationModalComponent);
+    modalRef.componentInstance.phone = phone;
+  }
+
+  onUser() {
+    this.router.navigateByUrl('');
   }
 }

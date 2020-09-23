@@ -14,6 +14,7 @@ export class UserPhoneEditComponent implements OnInit {
   phone: PhoneModel;
   userId: string;
   phoneId: string;
+  comparePhoneNumber: string;
   formGroup = this.createFormGroup();
 
   constructor(private formBuilder: FormBuilder,
@@ -29,17 +30,25 @@ export class UserPhoneEditComponent implements OnInit {
   ngOnInit() {
     this.phoneService.getUserPhone(this.userId, this.phoneId).subscribe(phone => {
       this.phone = phone;
+      this.comparePhoneNumber = phone.phoneNumber;
       this.updateFormGroup(phone);
     } );
   }
 
   onSubmit() {
-    const valueToSave = this.formGroup.value;
     const navigationExtras: NavigationExtras = {
       queryParams: {
         'userId': this.userId
       }
     };
+
+    if (this.comparePhoneNumber !== this.formGroup.controls['phoneNumber'].value) {
+      this.formGroup.patchValue(({
+        phoneNumberVerified: false
+      }));
+    }
+    const valueToSave = this.formGroup.value;
+
     this.phoneService.update(this.userId, this.phoneId, valueToSave).subscribe(data => {
       this.router.navigate(['/userPhones'], navigationExtras);
     });
@@ -49,7 +58,8 @@ export class UserPhoneEditComponent implements OnInit {
     return this.formGroup = new FormGroup({
       phoneName: new FormControl(null, [Validators.required, Validators.maxLength(50)]),
       phoneNumber: new FormControl(null, [Validators.required, Validators.maxLength(11), phoneNumberValidator]),
-      primaryPhoneNumber: new FormControl(false)
+      primaryPhoneNumber: new FormControl(false),
+      phoneNumberVerified: new FormControl(false)
     });
   }
 

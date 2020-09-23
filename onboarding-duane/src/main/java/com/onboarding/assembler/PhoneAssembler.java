@@ -35,7 +35,8 @@ public class PhoneAssembler {
                 .setUserId(dto.getUserId())
                 .setPhoneName(dto.getPhoneName())
                 .setPhoneNumber(dto.getPhoneNumber())
-                .setPrimaryPhoneNumber(BooleanUtils.isTrue(dto.getPrimaryPhoneNumber()));
+                .setPrimaryPhoneNumber(BooleanUtils.isTrue(dto.getPrimaryPhoneNumber()))
+                .setPhoneNumberVerified(BooleanUtils.isTrue(dto.getPhoneNumberVerified()));
     }
 
 }

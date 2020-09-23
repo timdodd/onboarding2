@@ -1,2 +1,10 @@
 /* You can add global styles to this file, and also import other style files */
 @import '~bootstrap/dist/css/bootstrap.min.css';
+
+body {
+  background: rgb(14, 35, 69);
+}
+
+.card {
+  margin-top: 25px;
+}
