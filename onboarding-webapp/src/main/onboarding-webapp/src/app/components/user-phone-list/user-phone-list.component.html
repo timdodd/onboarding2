@@ -29,8 +29,10 @@
         <td>{{phone.phoneId}}</td>
         <td>{{phone.phoneName}}</td>
         <td>{{phone.phoneNumber}}</td>
-        <td>{{phone.primaryPhoneNumber}}</td>
-        <td>{{phone.phoneNumberVerified}}</td>
+        <td *ngIf="!phone.primaryPhoneNumber"><img src="https://img.icons8.com/fluent/32/000000/close-window.png"/></td>
+        <td *ngIf="phone.primaryPhoneNumber"><img src="https://img.icons8.com/flat_round/32/000000/checkmark.png"/></td>
+        <td *ngIf="!phone.phoneNumberVerified"><img src="https://img.icons8.com/fluent/32/000000/close-window.png"/></td>
+        <td *ngIf="phone.phoneNumberVerified"><img src="https://img.icons8.com/flat_round/32/000000/checkmark.png"/></td>
         <td><button class="btn btn-primary" (click)="onEdit(phone.userId, phone.phoneId)">Edit</button></td>
         <td><button class="btn btn-primary" (click)="onDelete(phone.phoneId)">Delete</button></td>
         <td><button [disabled]="phone.phoneNumberVerified" class="btn btn-primary" (click)="onVerify(phone)">Verify</button></td>
@@ -39,4 +41,9 @@
     </table>
   </div>
 </div>
+
+<footer>
+  <a href="https://icons8.com/icon/rmf1Fvj5nBib/close-window">Close Window icon by Icons8. </a>
+  <a href="https://icons8.com/icon/81438/checkmark">Checkmark icon by Icons8. </a>
+</footer>
 

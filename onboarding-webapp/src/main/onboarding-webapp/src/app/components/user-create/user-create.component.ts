@@ -22,7 +22,7 @@ export class UserCreateComponent implements OnInit {
 
   onSubmit() {
     const valueToSave = this.formGroup.value;
-    this.userService.create(valueToSave).subscribe(data => {
+    this.userService.create(valueToSave).subscribe(() => {
       this.router.navigateByUrl('');
     });
   }

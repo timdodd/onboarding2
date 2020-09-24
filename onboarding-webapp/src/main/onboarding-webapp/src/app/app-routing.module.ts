@@ -6,8 +6,8 @@ import {HashLocationStrategy, LocationStrategy} from '@angular/common';
 import {UserEditComponent} from './components/user-edit/user-edit.component';
 import {UserPhoneListComponent} from './components/user-phone-list/user-phone-list.component';
 import {UserPhoneCreateComponent} from './components/user-phone-create/user-phone-create.component';
-import {UserPhoneEditComponent} from "./components/user-phone-edit/user-phone-edit.component";
-import {UserPhoneVerificationModalComponent} from "./components/user-phone-verification-modal/user-phone-verification-modal.component";
+import {UserPhoneEditComponent} from './components/user-phone-edit/user-phone-edit.component';
+import {UserPhoneVerificationModalComponent} from './components/user-phone-verification-modal/user-phone-verification-modal.component';
 
 const routes: Routes = [
   {

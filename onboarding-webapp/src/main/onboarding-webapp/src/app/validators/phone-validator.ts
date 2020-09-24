@@ -8,7 +8,4 @@ export function phoneNumberValidator(control: AbstractControl): { [key: string]:
     return {invalidNumber: { valid: false, value: control.value } };
   }
 
-  // return valid
-  //   ? null
-  //   : { invalidNumber: { valid: false, value: control.value } };
 }

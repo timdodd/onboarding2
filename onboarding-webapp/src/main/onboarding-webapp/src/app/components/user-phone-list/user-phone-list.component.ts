@@ -3,8 +3,8 @@ import {PhoneModel} from '../../models/phone.model';
 import {Subscription} from 'rxjs';
 import {ActivatedRoute, NavigationExtras, Router} from '@angular/router';
 import {PhoneService} from '../../services/phone.service';
-import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
-import {UserPhoneVerificationModalComponent} from "../user-phone-verification-modal/user-phone-verification-modal.component";
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {UserPhoneVerificationModalComponent} from '../user-phone-verification-modal/user-phone-verification-modal.component';
 
 @Component({
   selector: 'app-user-phone-list',
@@ -13,7 +13,6 @@ import {UserPhoneVerificationModalComponent} from "../user-phone-verification-mo
 })
 export class UserPhoneListComponent implements OnInit {
 
-  // code: string;
   phones: PhoneModel[] = [];
   userId: string;
   loadingSubscription = Subscription.EMPTY;
@@ -66,4 +65,5 @@ export class UserPhoneListComponent implements OnInit {
   onUser() {
     this.router.navigateByUrl('');
   }
+
 }
